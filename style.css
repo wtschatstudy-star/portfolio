@@ -1,0 +1,211 @@
+/* ============================
+   GLOBAL
+============================ */
+
+body {
+  margin: 0;
+  background: #0b0b0f;
+  color: #ddd;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* ============================
+   TOP BAR
+============================ */
+
+#top-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #14141c;
+  border-bottom: 1px solid #262636;
+  font-size: 13px;
+}
+
+#top-bar select {
+  background: #1f1f2a;
+  color: #eee;
+  border: 1px solid #333;
+  padding: 4px 8px;
+  border-radius: 4px;
+  outline: none;
+}
+
+#top-bar select:focus {
+  border-color: #3ddc97;
+}
+
+/* Live status text */
+#live-status {
+  margin-left: 16px;
+  color: #8a8aa0;
+}
+
+/* Permission HUD */
+#permission-status {
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+/* ============================
+   CHART AREA
+============================ */
+
+#chart-container {
+  width: 100vw;
+  height: calc(100vh - 40px);
+  overflow: hidden;
+}
+
+#chart {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============================
+   ACCESSIBILITY
+============================ */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+#permission-status {
+  margin-left: 20px;
+  color: #3ddc97;
+  font-weight: bold;
+}
+.hud-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.55);
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 13px;
+  color: #eee;
+  pointer-events: none;
+}
+
+.hud-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.hud-label {
+  color: #aaa;
+  margin-right: 8px;
+}
+
+.hud-value.ok {
+  color: #4cff4c;
+}
+
+.hud-value.deny {
+  color: #ff4c4c;
+}
+
+.hud-value.warn {
+  color: #ffcc00;
+}
+
+.hud-value.danger {
+  color: #ff4c4c;
+}
+.timeline-bar {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  height: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
+}
+
+.timeline-handle {
+  position: absolute;
+  top: -4px;
+  width: 12px;
+  height: 14px;
+  background: #3ddc97;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.journal-panel {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 270px;
+  max-height: 30%;
+  background: rgba(0, 0, 0, 0.85);
+  color: #eee;
+  font-family: monospace;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #333;
+  border-top: 1px solid #333;
+}
+
+.journal-header {
+  padding: 4px 8px;
+  border-bottom: 1px solid #333;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.journal-body {
+  overflow-y: auto;
+  padding: 4px 4px 6px 4px;
+}
+
+.journal-row {
+  display: grid;
+  grid-template-columns: 60px 80px 1fr;
+  gap: 4px;
+  padding: 2px 4px;
+}
+
+.journal-time {
+  color: #888;
+}
+
+.journal-type {
+  color: #3ddc97;
+}
+
+.journal-msg {
+  color: #eee;
+}
+
+.journal-permission .journal-type {
+  color: #ffd166;
+}
+
+.journal-trade_open .journal-type {
+  color: #4cc9f0;
+}
+
+.journal-trade_close .journal-type {
+  color: #f72585;
+}
+
+.journal-empty {
+  padding: 4px 8px;
+  color: #666;
+}
+.hidden {
+  display: none !important;
+}

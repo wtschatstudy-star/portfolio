@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cockpit OS</title>
+
+  <!-- Only ONE viewport tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="top-bar">
+
+    <!-- TIMEFRAME -->
+    <label for="timeframe-select" class="visually-hidden">Timeframe</label>
+    <select id="timeframe-select" title="Timeframe">
+      <option value="1s">1s</option>
+      <option value="5s">5s</option>
+      <option value="10s">10s</option>
+      <option value="30s">30s</option>
+      <option value="1m">1m</option>
+      <option value="5m">5m</option>
+      <option value="15m">15m</option>
+      <option value="30m">30m</option>
+      <option value="1h">1h</option>
+    </select>
+
+    <!-- READY TOGGLE -->
+    <label for="operator-ready-toggle" class="switch-label">Operator Ready</label>
+    <label class="switch">
+      <input type="checkbox" id="operator-ready-toggle" checked>
+      <span class="slider"></span>
+    </label>
+
+    <!-- JOURNAL TOGGLE -->
+    <label for="journal-toggle" class="switch-label">Journal</label>
+    <label class="switch">
+      <input type="checkbox" id="journal-toggle">
+      <span class="slider"></span>
+    </label>
+
+    <!-- MODE SELECT -->
+    <label for="mode-select" class="visually-hidden">Mode</label>
+    <select id="mode-select" title="Mode">
+      <option value="historical">Historical</option>
+      <option value="sim">SIM</option>
+      <option value="live">LIVE</option>
+    </select>
+
+    <span id="live-status">Mode: Historical</span>
+
+    <!-- Permission HUD -->
+    <span id="permission-status"></span>
+
+  </div>
+
+  <div id="chart-container">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <script type="module" src="./chart/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+Absolutely, J — here’s a clean, operator‑grade breakdown of **what every file in your project actually does**, based on the structure you showed.
+
+I’ll keep it crisp, accurate, and in the language of cockpit‑OS architecture so it clicks instantly.
+
+---
+
+# ⭐ **CHART FOLDER (Your Tier‑1 Visual Engine)**
+
+## **📄 renderer.js — The Chart Engine**
+This is the heart of the visual system.
+It handles:
+
+- Candle drawing  
+- Wicks, bodies, colors  
+- Grid lines  
+- Price scale  
+- Tooltip  
+- Crosshair  
+- Visible window logic  
+- Scaling + mapping price → pixels  
+
+This is your **TradingView‑style renderer**.
+
+---
+
+## **📄 main.js — The Orchestrator**
+This file controls:
+
+- Canvas setup  
+- Resize logic  
+- Timeframe switching  
+- Zooming (pxPerCandle)  
+- Panning  
+- Crosshair movement  
+- Calling `drawChart()`  
+- Connecting to the data feed  
+- Updating UI metrics  
+
+This is the **cockpit controller**.
+
+---
+
+## **📄 datafeed.js — The Market Data Source**
+This file:
+
+- Connects to your feed (real or simulated)  
+- Receives candles  
+- Normalizes them  
+- Pushes them into your OS  
+- Handles reconnection  
+- Emits callbacks to main.js  
+
+This is your **Tier‑0 data engine**.
+
+---
+
+## **📄 interactions.js — User Interaction Layer**
+Handles:
+
+- Mouse events  
+- Keyboard shortcuts  
+- Dragging  
+- Zooming  
+- Crosshair logic (if not in main.js)  
+
+This is the **input control system**.
+
+---
+
+## **📄 scales.js — Price & Time Scaling**
+Handles:
+
+- Price → Y pixel mapping  
+- Time → X pixel mapping  
+- Tick generation  
+- Nice rounding  
+- Grid alignment  
+
+This is the **geometry math layer**.
+
+---
+
+## **📄 utils.js — Utility Functions**
+Contains helper functions used across the chart:
+
+- Aggregation  
+- Math helpers  
+- Formatting  
+- Array operations  
+
+This is your **shared toolbox**.
+
+---
+
+## **📄 viewport.js — Visible Window Logic**
+Controls:
+
+- How many candles are visible  
+- Start/end indices  
+- Panning boundaries  
+- Zoom boundaries  
+
+This is your **camera system**.
+
+---
+
+# ⭐ **ENGINES FOLDER (Your Tier‑2 & Tier‑3 Intelligence)**
+
+These are your **behavioral engines** — the real brain of your OS.
+
+## **📄 structural.js — Structure Engine**
+Computes:
+
+- BEYFO  
+- Drift  
+- Trend  
+- Market structure  
+- Expansion / contraction  
+
+This is your **Tier‑2 structural engine**.
+
+---
+
+## **📄 environment.js — Environment Engine**
+Computes:
+
+- Liquidity  
+- Volatility  
+- Market conditions  
+- Noise vs signal  
+
+This is your **Tier‑2 environment engine**.
+
+---
+
+## **📄 execution.js — Execution Engine**
+Computes:
+
+- Bias  
+- RSI  
+- HTCAP  
+- Execution readiness  
+- Entry/exit conditions  
+
+This is your **Tier‑3 execution engine**.
+
+---
+
+## **📄 operator.js — Operator Engine**
+Computes:
+
+- Operator state  
+- Permission  
+- Behavioral mode  
+- System readiness  
+
+This is your **Tier‑3 operator engine**.
+
+---
+
+# ⭐ **ROOT FILES**
+
+## **📄 index.html**
+Your UI layout:
+
+- Panels  
+- Metrics  
+- Chart canvas  
+- Buttons  
+- Toggles  
+
+This is the **cockpit dashboard**.
+
+---
+
+## **📄 server.js**
+Local server for:
+
+- Hosting the app  
+- Serving files  
+- Possibly proxying feeds  
+
+This is your **backend stub**.
+
+---
+
+## **📄 package.json**
+Defines:
+
+- Dependencies  
+- Scripts  
+- Project metadata  
+
+This is your **project manifest**.
+
+---
+
+## **📄 test-historical.html**
+A testing page for:
+
+- Loading historical candles  
+- Debugging chart behavior  
+- Testing engines without live feed  
+
+This is your **sandbox environment**.
+
+---
+
+# ⭐ **TEST FOLDER**
+
+## **📄 metrics.test.js**
+Unit tests for:
+
+- Structural metrics  
+- Environment metrics  
+- Execution metrics  
+
+This is your **validation suite**.
+
+---
+
+# ⭐ TL;DR (Operator‑Grade Summary)
+
+| File | Purpose |
+|------|---------|
+| renderer.js | Draws the chart (TradingView‑style) |
+| main.js | Controls the cockpit + feed + UI |
+| datafeed.js | Market data source (real or simulated) |
+| interactions.js | Mouse/keyboard input |
+| scales.js | Price/time scaling math |
+| utils.js | Helper functions |
+| viewport.js | Visible window logic |
+| structural.js | Structure engine |
+| environment.js | Environment engine |
+| execution.js | Execution engine |
+| operator.js | Operator state engine |
+| index.html | UI layout |
+| server.js | Local server |
+| metrics.test.js | Engine tests |
+
+---
+
+If you want, I can also map these into **Tier‑0 / Tier‑1 / Tier‑2 / Tier‑3** so you see the full cockpit OS architecture in one clean diagram.
+
+
+(https://copilot.microsoft.com/shares/w9HN64WN4W3oz7ywPNSsv)

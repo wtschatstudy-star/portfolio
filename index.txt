@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haugen Engine Cockpit (Simple)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; padding:0; background:#080c16; color:#c8d1e6; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+    #top-bar { height:46px; display:flex; justify-content:space-between; align-items:center; padding:0 14px; background:linear-gradient(180deg,#11172c 0%,#0d131f 100%); border-bottom:1px solid rgba(97, 119, 151, .24); }
+    #top-left,#top-center,#top-right { display:flex; align-items:center; gap:8px; }
+    #top-center { flex-wrap:nowrap; gap:6px; flex:1; overflow-x:auto; overflow-y:hidden; padding:0 8px; scroll-behavior:smooth; }
+    #top-center::-webkit-scrollbar { height:4px; }
+    #top-center::-webkit-scrollbar-track { background:rgba(97,119,151,.1); }
+    #top-center::-webkit-scrollbar-thumb { background:rgba(97,119,151,.3); border-radius:2px; }
+    #top-center::-webkit-scrollbar-thumb:hover { background:rgba(97,119,151,.5); }
+    .tf-btn { padding:5px 10px; border-radius:5px; font-size:11px; border:1px solid rgba(103,120,150,.3); cursor:pointer; background:rgba(26,33,47,.8); color:#b9c6e1; -webkit-user-select:none; user-select:none; transition:all .14s ease; }
+    .tf-btn:hover { background:rgba(38,55,88,.95); }
+    .tf-btn.active { background:#153b83; color:#fff; border-color:#1454d0; box-shadow:0 0 12px rgba(20,84,208,.25); }
+    .status-pill { padding:3px 8px; border-radius:999px; border:1px solid rgba(70,92,127,.3); background:rgba(27,39,61,.82); font-size:11px; }
+    #main-layout { display:flex; height:calc(100vh - 46px); }
+    #left-column { flex:1; display:flex; flex-direction:column; padding:8px; }
+    #tier1-strip { display:flex; gap:6px; margin-bottom:6px; }
+    .t1-pill { padding:4px 10px; border-radius:999px; border:1px solid #20263a; background:#131722; font-size:11px; white-space:nowrap; }
+    #chart-container { flex:1; border:1px solid #20263a; border-radius:4px; background:#131722; overflow:hidden; }
+    #chart { width:100%; height:100%; display:block; }
+    #right-sidebar { width:300px; border-left:1px solid #20263a; padding:8px; display:flex; flex-direction:column; gap:8px; background:#0b0f1a; }
+    .side-panel { padding:8px; border:1px solid #20263a; border-radius:4px; background:#131722; font-family: "JetBrains Mono", monospace; font-size:11px; }
+    .panel-header { font-size:11px; margin-bottom:6px; font-weight:700; color:#6a9df8; text-transform:uppercase; letter-spacing:.04em; }
+    #env-exec-row { display:flex; gap:6px; }
+    .metric-line { margin:2px 0; }
+    .data-mode-toggle { margin-left:auto; display:flex; gap:8px; align-items:center; font-size:11px; }
+    .toggle-switch { width:40px; height:20px; background:#131722; border:1px solid #20263a; border-radius:10px; cursor:pointer; position:relative; transition:all .2s; }
+    .toggle-switch.active { background:#153b83; border-color:#1454d0; }
+    .toggle-dot { position:absolute; top:2px; left:2px; width:14px; height:14px; background:#6a9df8; border-radius:50%; transition:left .2s; }
+    .toggle-switch.active .toggle-dot { left:24px; background:#fff; }
+  </style>
+</head>
+<body>
+  <div id="top-bar">
+    <div id="top-left"><div id="app-title">Haugen Engine</div><div id="symbol-block">BTCUSD</div><div id="price-block">Simulated Feed</div></div>
+    <div id="top-center">
+      <button class="tf-btn active" data-tf="1s">1s</button>
+      <button class="tf-btn" data-tf="5s">5s</button>
+      <button class="tf-btn" data-tf="10s">10s</button>
+      <button class="tf-btn" data-tf="30s">30s</button>
+      <button class="tf-btn" data-tf="1m">1m</button>
+      <button class="tf-btn" data-tf="5m">5m</button>
+      <button class="tf-btn" data-tf="15m">15m</button>
+      <button class="tf-btn" data-tf="30m">30m</button>
+      <button class="tf-btn" data-tf="1h">1h</button>
+      <button class="tf-btn" data-tf="4h">4h</button>
+      <button class="tf-btn" data-tf="1d">1d</button>
+      <button class="tf-btn" data-tf="1w">1w</button>
+      <button class="tf-btn" data-tf="1M">1M</button>
+      <button class="tf-btn" data-tf="3M">3M</button>
+    </div>
+    <div id="top-right"><div class="status-pill" id="status-htcap">HTCAP-1</div><div class="status-pill" id="status-permission">PERMISSION</div><div class="data-mode-toggle"><span>Historical</span><div class="toggle-switch active" id="historical-toggle"><div class="toggle-dot"></div></div></div></div>
+  </div>
+
+  <div id="main-layout">
+    <div id="left-column">
+      <div id="tier1-strip">
+        <div class="t1-pill" id="structure-panel">Structure: ...</div>
+        <div class="t1-pill" id="trimarket-panel">Tri-Market: ...</div>
+        <div class="t1-pill" id="environment-panel-tier1">Environment: ...</div>
+        <div class="t1-pill" id="execution-panel">Execution: ...</div>
+      </div>
+      <div id="chart-container"><canvas id="chart"></canvas></div>
+    </div>
+
+    <div id="right-sidebar">
+      <div class="side-panel">
+        <div class="panel-header">STRUCTURAL ENGINE</div>
+        <div id="beyfo-line" class="metric-line">BEYFO: ...</div>
+        <div id="drift-line" class="metric-line">Drift: ...</div>
+      </div>
+      <div id="env-exec-row">
+        <div class="side-panel">
+          <div class="panel-header env">ENVIRONMENT ENGINE</div>
+          <div id="liq-line" class="metric-line">Liquidity: ...</div>
+          <div id="vol-line" class="metric-line">Volatility: ...</div>
+        </div>
+        <div class="side-panel">
+          <div class="panel-header exec">EXECUTION ENGINE</div>
+          <div id="bias-line" class="metric-line">Bias: ...</div>
+          <div id="rsi-line" class="metric-line">RSI: ...</div>
+        </div>
+      </div>
+      <div class="side-panel">
+        <div class="panel-header op">OPERATOR ENGINE</div>
+        <div id="op-state-line" class="metric-line">State: ...</div>
+        <div id="op-perm-line" class="metric-line">Permission: ...</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./chart/main.js"></script>
+</body>
+</html>

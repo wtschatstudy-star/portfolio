@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Historical Data</title>
+</head>
+<body>
+    <h1>Testing Historical Data Loading</h1>
+    <div id="output"></div>
+    <script type="module">
+        const output = document.getElementById('output');
+
+        function log(message) {
+            output.innerHTML += '<div>' + message + '</div>';
+            console.log(message);
+        }
+
+        // Test the historical data fetch
+        async function testHistoricalData() {
+            log('Testing historical data fetch...');
+            try {
+                const url = 'https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=10';
+                log('Fetching from: ' + url);
+                const response = await fetch(url);
+                log('Response status: ' + response.status);
+                if (response.ok) {
+                    const data = await response.json();
+                    log('Data received: ' + data.length + ' candles');
+                    log('First candle: ' + JSON.stringify(data[0]));
+                } else {
+                    log('Failed to fetch: ' + response.statusText);
+                }
+            } catch (err) {
+                log('Error: ' + err.message);
+            }
+        }
+
+        testHistoricalData();
+    </script>
+</body>
+</html></content>
+<parameter name="filePath">d:\HaugenWebChart\test-historical.html
